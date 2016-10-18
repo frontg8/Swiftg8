@@ -4,7 +4,7 @@ public class Error : Swift.Error {
 
   internal let cError: OpaquePointer?
 
-  init() {
+  public init() {
     cError = OpaquePointer(bitPattern: 0)
   }
 

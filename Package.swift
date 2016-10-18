@@ -5,5 +5,9 @@ let package = Package(
   dependencies: [
    .Package(url: "https://github.com/frontg8/SCFrontg8.git", majorVersion: 1)
   ]
+)
 
- )
+package.targets = [
+  Target(name: "Swiftg8"),
+  Target(name: "Swiftg8Demo", dependencies: ["Swiftg8"]),
+]

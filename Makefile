@@ -8,7 +8,7 @@ FRONTG8_LIB_DIR=$(FRONTG8_BUILD_DIR)/products/$(MODULE_BUILD_TYPE)/lib
 
 SCFLAGS = -I CFrontg8
 CCFLAGS = -isystem $(FRONTG8_INCLUDE_DIR)
-LDFLAGS = -lfrontg8 -lprotobuf -L $(FRONTG8_LIB_DIR)
+LDFLAGS = -lfrontg8 -lprotobuf -L $(FRONTG8_LIB_DIR) -rpath $(FRONTG8_LIB_DIR)
 CMFLAGS = -DCMAKE_BUILD_TYPE=$(MODULE_BUILD_TYPE)
 
 S = swift
@@ -34,4 +34,4 @@ module:
 
 test:
 	@echo "STEST $(MODULE_NAME)"
-	@LD_LIBRARY_PATH=$(FRONTG8_LIB_DIR) $(S) test $(SFLAGS)
+	@$(S) test $(SFLAGS)
