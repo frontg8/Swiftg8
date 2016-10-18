@@ -6,26 +6,39 @@ import class Swiftg8.Error
 class EncryptedTests: XCTestCase {
 
   func testEmptyMessage() {
-    let msg = Encrypted()!
+    guard let msg = Encrypted() else {
+      XCTFail("Could not construct empty message.")
+      return
+    }
+
     XCTAssertEqual(msg.content, nil)
     XCTAssert(!msg.valid)
   }
 
   func testEmptyMessageWithError() {
     var error = Error()
-    let msg = Encrypted(&error)!
+    guard let msg = Encrypted(&error) else {
+      XCTFail("Could not construct empty message.")
+      return
+    }
+
     XCTAssertEqual(msg.content, nil)
     XCTAssert(!msg.valid)
   }
 
   func testSerializeEmptyMessage() {
-    let msg = Encrypted()!
+    guard let msg = Encrypted() else {
+      XCTFail("Could not construct empty message.")
+      return
+    }
+
     do {
       let _ = try msg.serialize()
       XCTFail("Should have thrown")
     } catch {
       XCTAssert(true)
     }
+
     XCTAssertEqual(msg.content, nil)
     XCTAssert(!msg.valid)
   }
