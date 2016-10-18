@@ -9,21 +9,22 @@ import Swiftg8
 func DemoEncryptedMessageWithString() {
 
   var error = Error()
-  let message = Encrypted(content: "Hello, frontg8!", &error)
-  if message == nil {
-    print("Failed to initialize message: ", error.message)
+  guard let message = Encrypted(content: "Hello, frontg8!", &error) else {
+    print("Failed to initialize message: \(error.message)")
     return
   }
 
-  let content = message!.content
-  if content == nil {
+  guard let content = message.content else {
     print("Failed to get content of message")
     return
   }
 
-  let text = String(data: content!, encoding: .utf8)!
-  print(text)
+  guard let text = String(data: content, encoding: .utf8) else {
+    print("Failed to construct String from message content")
+    return
+  }
 
+  print(text)
 }
 
 print("Demo: Encrypted message with string:")

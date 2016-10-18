@@ -17,12 +17,11 @@ public class Error : Swift.Error {
   }
 
   public var message: String {
-    let cStr = fg8_error_message(cError)
-    if  cStr != nil {
-      return String(cString: cStr!)
+    guard let cStr = fg8_error_message(cError) else {
+      return ""
     }
 
-    return ""
+    return String(cString: cStr)
   }
 
 }
