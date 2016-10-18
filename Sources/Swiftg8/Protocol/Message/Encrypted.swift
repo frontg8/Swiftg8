@@ -63,13 +63,23 @@ public class Encrypted {
   */
   public init?(content: String, _ error: inout Error) {
     var cError: OpaquePointer?
+    let bytes = content.utf8CString
+    var cPointer: OpaquePointer?
 
-    cEncrypted = fg8_protocol_message_encrypted_create(content, content.utf8CString.count, &cError)
+    bytes.withUnsafeBufferPointer { pointer in
+      guard let realPointer = pointer.baseAddress else {
+        return
+      }
 
-    if cError != nil {
+      cPointer = fg8_protocol_message_encrypted_create(realPointer, Int(strlen(realPointer)), &cError)
+    }
+
+    guard let _ = cPointer, cError == nil else {
       error = Error(cError)
       return nil
     }
+
+    cEncrypted = cPointer
   }
 
   /**
