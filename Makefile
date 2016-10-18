@@ -22,16 +22,18 @@ all: frontg8 module test
 
 clean:
 	@echo CLEAN
-	@rm -rf .build
+	@$(S) build --clean
 
 frontg8:
-	@echo "PREP Frontg8"
-	@cd $(FRONTG8_BUILD_DIR) && cmake $(CMFLAGS) .. &>/dev/null && cmake --build . -- -j$(shell nproc) &>/dev/null
+	@echo "CMAKE Frontg8 - $(MODULE_BUILD_TYPE)"
+	@cd $(FRONTG8_BUILD_DIR) && cmake $(CMFLAGS) .. &>/dev/null
+	@echo "BUILD Frontg8 - $(MODULE_BUILD_TYPE)"
+	@cd $(FRONTG8_BUILD_DIR) && cmake --build . -- -j$(shell nproc) &>/dev/null
 
 module:
-	@echo "SBUILD $(MODULE_NAME)"
+	@echo "SWIFT $(MODULE_NAME)"
 	@$(S) build -c $(shell echo $(MODULE_BUILD_TYPE) | tr A-Z a-z) $(SFLAGS)
 
 test:
-	@echo "STEST $(MODULE_NAME)"
+	@echo "TEST $(MODULE_NAME)"
 	@$(S) test $(SFLAGS)
