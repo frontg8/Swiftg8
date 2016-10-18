@@ -6,9 +6,7 @@ class ErrorTests: XCTestCase {
     XCTAssertEqual(Error().message, "")
   }
 
-  static var allTests : [(String, (ErrorTests) -> () throws -> Void)] {
-    return [
-      ("An empty error returns an empty message", testEmptyErrorHasEmptyMessage),
-    ]
-  }
+  static var allTests = [
+    ("testEmptyErrorHasEmptyMessage", testEmptyErrorHasEmptyMessage),
+  ]
 }
