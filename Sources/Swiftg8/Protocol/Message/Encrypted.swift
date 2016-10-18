@@ -237,6 +237,9 @@ public class Encrypted {
     }
   }
 
+}
+
+extension Encrypted: Equatable {
   public static func == (lhs: Encrypted, rhs: Encrypted) -> Bool {
     return fg8_protocol_message_encrypted_compare_equal(lhs.cEncrypted, rhs.cEncrypted)
   }
